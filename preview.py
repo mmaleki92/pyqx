@@ -1,45 +1,55 @@
 #!/usr/bin/env python
-#coding: utf-8
+# coding: utf-8
 
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor, QPixmap
 
-class Preview (QtWidgets.QDockWidget):
 
-	def __init__(self, title, context, signals, Parent=None):
+class Preview(QtWidgets.QDockWidget):
 
-		super(Preview, self).__init__(title, Parent)
+    def __init__(self, title, context, signals, Parent=None):
 
-		self.context = context
-		self.signals = signals
-		self.parent = Parent
-		self.setAllowedAreas(Qt.RightDockWidgetArea)
-		self.setFeatures(QtWidgets.QDockWidget.NoDockWidgetFeatures)
+        super(Preview, self).__init__(title, Parent)
 
-		self.label = QtWidgets.QLabel()
-		if self.context.getCurrentImagePos() != -1:
-			self.label.setPixmap(QPixmap.fromImage(self.context.currentQImage()))
-		self.label.setObjectName("Preview")
-		self.label.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
-		self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-		self.setWidget(self.label)
-		self.update()
+        self.context = context
+        self.signals = signals
+        self.parent = Parent
+        self.setAllowedAreas(Qt.RightDockWidgetArea)
+        self.setFeatures(QtWidgets.QDockWidget.NoDockWidgetFeatures)
 
-		self.signals.updateCanvas.connect(self.update)
-		self.signals.imageChanged.connect(self.update)
+        self.label = QtWidgets.QLabel()
+        if self.context.getCurrentImagePos() != -1:
+            self.label.setPixmap(QPixmap.fromImage(self.context.currentQImage()))
+        self.label.setObjectName("Preview")
+        self.label.setSizePolicy(
+            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum
+        )
+        self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.setWidget(self.label)
+        self.update()
 
-	def update(self):
+        self.signals.updateCanvas.connect(self.update)
+        self.signals.imageChanged.connect(self.update)
 
-		super(Preview, self).update()
-		if self.context.currentImage() != None:
-			if self.context.currentQImage().width() > 128 or self.context.currentQImage().height() > 128:
-				imatge = self.context.currentQImage().scaled(128, 128, Qt.KeepAspectRatio)
-				self.label.setPixmap(QPixmap.fromImage(imatge))
-			else:
-				self.label.setPixmap(QPixmap.fromImage(self.context.currentQImage()))
-		else:
-			self.label = QtWidgets.QLabel()
-			self.label.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
-			self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-			self.setWidget(self.label)
+    def update(self):
+
+        super(Preview, self).update()
+        if self.context.currentImage() != None:
+            if (
+                self.context.currentQImage().width() > 128
+                or self.context.currentQImage().height() > 128
+            ):
+                imatge = self.context.currentQImage().scaled(
+                    128, 128, Qt.KeepAspectRatio
+                )
+                self.label.setPixmap(QPixmap.fromImage(imatge))
+            else:
+                self.label.setPixmap(QPixmap.fromImage(self.context.currentQImage()))
+        else:
+            self.label = QtWidgets.QLabel()
+            self.label.setSizePolicy(
+                QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum
+            )
+            self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.setWidget(self.label)

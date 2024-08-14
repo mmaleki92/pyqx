@@ -1,5 +1,5 @@
 #!/usr/bin/env python3:
-#coding: utf-8
+# coding: utf-8
 
 import sys, os
 
@@ -13,31 +13,35 @@ from context import Context
 
 def readCSS(fname):
 
-	f = open(fname, 'r')
-	s = f.read()
-	f.close()
+    f = open(fname, "r")
+    s = f.read()
+    f.close()
 
-	return s
+    return s
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-	app = QtWidgets.QApplication(sys.argv)
-	#app.setWindowIcon(QtWidgets.QIcon("images/icon.png"))
+    app = QtWidgets.QApplication(sys.argv)
+    # app.setWindowIcon(QtWidgets.QIcon("images/icon.png"))
 
-	sys.setrecursionlimit(4096*4096)
+    sys.setrecursionlimit(4096 * 4096)
 
-	customFnt = "Lato-Reg.ttf"
-	if QtGui.QFontDatabase().addApplicationFont(os.path.join("fonts", customFnt)) < 0:
-		print("Warning: Could not load custom font" + customFnt + ", falling back to default font.")
-	else:
-		fnt = QtGui.QFont("Lato", 10)
-		app.setFont(fnt)
+    customFnt = "Lato-Reg.ttf"
+    if QtGui.QFontDatabase().addApplicationFont(os.path.join("fonts", customFnt)) < 0:
+        print(
+            "Warning: Could not load custom font"
+            + customFnt
+            + ", falling back to default font."
+        )
+    else:
+        fnt = QtGui.QFont("Lato", 10)
+        app.setFont(fnt)
 
-	signals = Signals()
-	context = Context(signals)
+    signals = Signals()
+    context = Context(signals)
 
-	mw = MainWindow(context, signals)
-	mw.setStyleSheet(readCSS(os.path.join("themes", "algae", "style.css")))
+    mw = MainWindow(context, signals)
+    mw.setStyleSheet(readCSS(os.path.join("themes", "algae", "style.css")))
 
-	sys.exit(app.exec_())
+    sys.exit(app.exec_())
