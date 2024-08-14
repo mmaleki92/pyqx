@@ -3,6 +3,8 @@
 
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QDrag
+
 import random
 
 
@@ -33,7 +35,7 @@ class CurrentColor(QtWidgets.QLabel):
         mimecontext = QtCore.QMimeData()
         mimecontext.setColorData(self.color)
 
-        drag = QtWidgets.QDrag(self)
+        drag = QDrag(self)
         drag.setMimeData(mimecontext)
         drag.setHotSpot(e.pos() - self.rect().topLeft())
 
@@ -100,7 +102,7 @@ class Color(QtWidgets.QFrame):
 		mimecontext = QtCore.QMimecontext()
 		mimecontext.setColorcontext(self.color)
 
-		drag = QtWidgets.QDrag(self)
+		drag = QDrag(self)
 		drag.setMimecontext(mimecontext)
 		drag.setHotSpot(e.pos() - self.rect().topLeft())
 
