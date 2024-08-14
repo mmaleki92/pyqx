@@ -45,9 +45,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.signals.enterCanvas.connect(self.showImagePosition)
         self.signals.leaveCanvas.connect(self.hideImagePosition)
         self.signals.overCanvas.connect(self.setImagePosition)
-
+        self.signals.newImage.connect(self.enable_zoom_button)
         self.show()
 
+
+    def enable_zoom_button(self):
+        self.zoomout_action.setEnabled(True)
+        self.zoomin_action.setEnabled(True)
+    
     def createPopupMenu(self):
 
         pass  # Reimplementando esta función conseguimos que no se creen los menús popup cuando hacemos click derecho en toolbars/dockwidgets.
@@ -94,26 +99,26 @@ class MainWindow(QtWidgets.QMainWindow):
                 a.toggled.connect(connects[i])
             l.append(a)
 
-        a = QtWidgets.QAction(
+        self.zoomin_action = QtWidgets.QAction(
             QtGui.QIcon(os.path.join("themes", self.context.theme, "zoomin.png")),
             self.context.getText("tools", "zoomin"),
             self.tools,
         )
-        a.setEnabled(False)
-        a.setShortcut("Ctrl++")
-        a.triggered.connect(self.zoomIn)
-        l.append(a)
+        self.zoomin_action.setEnabled(False)
+        self.zoomin_action.setShortcut("Ctrl++")
+        self.zoomin_action.triggered.connect(self.zoomIn)
+        l.append(self.zoomin_action)
 
-        a = QtWidgets.QAction(
+        self.zoomout_action = QtWidgets.QAction(
             QtGui.QIcon(os.path.join("themes", self.context.theme, "zoomout.png")),
             self.context.getText("tools", "zoomout"),
             self.tools,
         )
-        a.setShortcut("Ctrl+-")
-        a.setEnabled(False)
+        self.zoomout_action.setShortcut("Ctrl+-")
+        self.zoomout_action.setEnabled(False)
 
-        a.triggered.connect(self.zoomOut)
-        l.append(a)
+        self.zoomout_action.triggered.connect(self.zoomOut)
+        l.append(self.zoomout_action)
 
         l[self.context.currentTool].setChecked(True)
 
