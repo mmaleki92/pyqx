@@ -3,7 +3,6 @@
 import io
 
 from PIL import Image, ImageDraw
-from PIL.ImageQt import ImageQt
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt, QBuffer
 
