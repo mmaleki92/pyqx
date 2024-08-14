@@ -88,11 +88,11 @@ class MainWidget(QtWidgets.QTabWidget):
             return True
 
     def updateIcon(self):
-
-        self.setTabIcon(
-            self.currentIndex(),
-            QtGui.QIcon(QtGui.QPixmap.fromImage(self.context.currentQImage())),
-        )
+        if self.context.currentQImage():
+            self.setTabIcon(
+                self.currentIndex(),
+                QtGui.QIcon(QtGui.QPixmap.fromImage(self.context.currentQImage())),
+            )
 
 
 class TabBar(QtWidgets.QTabBar):
