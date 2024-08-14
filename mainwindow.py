@@ -713,14 +713,25 @@ class MainWindow(QtWidgets.QMainWindow):
                 )  # Cambiamos el color secundario actual por el que hemos cogido
 
     def wheelEvent(self, event):
+        # Retrieve the amount of scroll in pixels
+        delta = event.pixelDelta()
+
+        # Scroll amount in the X direction
+        xScroll = delta.x()
+        
+        # Scroll amount in the Y direction
+        yScroll = delta.y()
 
         if self.ctrlPressed:
-            if event.pixelDelta() > 0:
+            # Typically, vertical scrolling affects zooming
+            if yScroll > 0:
                 self.zoomIn()
-            else:
+            elif yScroll < 0:
                 self.zoomOut()
 
+        # Call the base class method to ensure other default behavior
         super(MainWindow, self).wheelEvent(event)
+
 
     def closeEvent(self, event):
 
