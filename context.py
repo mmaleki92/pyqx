@@ -57,8 +57,7 @@ class Context:
 		self.signals.newImage.emit()
 
 	def loadImage(self, fileName):
-
-		self.images.append(Image.fromFile(fileName, self))
+		self.images.append(Image.fromFile(fileName[0], self))
 		self.image = len(self.images) - 1
 
 		self.signals.newImage.emit()

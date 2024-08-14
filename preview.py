@@ -3,6 +3,7 @@
 
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QColor, QPixmap
 
 class Preview (QtWidgets.QDockWidget):
 
@@ -18,7 +19,7 @@ class Preview (QtWidgets.QDockWidget):
 
 		self.label = QtWidgets.QLabel()
 		if self.context.getCurrentImagePos() != -1:
-			self.label.setPixmap(QtWidgets.QPixmap.fromImage(self.context.currentQImage()))
+			self.label.setPixmap(QPixmap.fromImage(self.context.currentQImage()))
 		self.label.setObjectName("Preview")
 		self.label.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
 		self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
@@ -34,9 +35,9 @@ class Preview (QtWidgets.QDockWidget):
 		if self.context.currentImage() != None:
 			if self.context.currentQImage().width() > 128 or self.context.currentQImage().height() > 128:
 				imatge = self.context.currentQImage().scaled(128, 128, Qt.KeepAspectRatio)
-				self.label.setPixmap(QtWidgets.QPixmap.fromImage(imatge))
+				self.label.setPixmap(QPixmap.fromImage(imatge))
 			else:
-				self.label.setPixmap(QtGui.QPixmap.fromImage(self.context.currentQImage()))
+				self.label.setPixmap(QPixmap.fromImage(self.context.currentQImage()))
 		else:
 			self.label = QtWidgets.QLabel()
 			self.label.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)

@@ -3,7 +3,7 @@
 
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
-
+from PyQt5.QtGui import QColor, QPixmap
 
 class Image:
 
@@ -26,9 +26,9 @@ class Image:
 		image = QtGui.QImage(fileName).convertToFormat(QtGui.QImage.Format_ARGB32_Premultiplied)
 
 		if image.hasAlphaChannel():
-			bgColor = QtWidgets.QColor(0,0,0,0)
+			bgColor = QColor(0,0,0,0)
 		else:
-			bgColor = QtWidgets.QColor(255,255,255)
+			bgColor = QColor(255,255,255)
 
 		return cls(fileName, image, bgColor, context)
 
