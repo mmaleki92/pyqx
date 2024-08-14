@@ -19,29 +19,27 @@ class Language:
 
 
 class TDatabase:
-
     def __init__(self):
-
-        self.d = {}
+        self.languages = {}
         self.langAvailable = []
 
-        cp = ConfigParser()
-        langs = os.listdir("lang")
-        for lang in langs:
-            cp.read("lang/" + lang)
-            langname = cp.get("_lang", "name")
-            d2 = {}
-            for j in cp.sections()[1:]:  # Sin la sección _lang
-                d3 = {}
-                for key, value in cp.items(j):
-                    d3[key] = value
-                d2[j] = d3
-            lang = Language(lang, langname, d2)
-            self.d[lang] = lang
-            self.langAvailable.append(lang)
+        self.load_languages()
 
-        self.langNum = len(self.d.keys())
+    def load_languages(self):
+        cp = ConfigParser()
+        lang_dir = "lang"
+
+        for lang_file in os.listdir(lang_dir):
+            cp.read(os.path.join(lang_dir, lang_file))
+            langname = cp.get("_lang", "name")
+
+            sections = {section: dict(cp.items(section)) for section in cp.sections() if section != "_lang"}
+
+            self.languages[lang_file] = Language(lang_file, langname, sections)
+            self.langAvailable.append(lang_file)
+
+        self.langNum = len(self.languages)
 
     def getText(self, lang, sect, ident):
 
-        return self.d[lang][sect][ident]
+        return self.languages[lang][sect][ident]
