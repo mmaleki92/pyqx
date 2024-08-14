@@ -12,6 +12,7 @@ from palette import Palette
 from toolproperties import ToolProperties
 from preview import Preview
 from dialogs import NewFileDialog, ResizeImageDialog, ResizeCanvasDialog, Preferences
+from PyQt5.QtGui import QImage
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -507,7 +508,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if self.context.currentImage().posHistory > 0:
             self.context.currentImage().posHistory -= 1
-            self.context.currentImage().image = QtWidgets.QImage(
+            self.context.currentImage().image = QImage(
                 self.context.currentImage().history[
                     self.context.currentImage().posHistory
                 ]
@@ -522,7 +523,7 @@ class MainWindow(QtWidgets.QMainWindow):
             < len(self.context.currentImage().history) - 1
         ):
             self.context.currentImage().posHistory += 1
-            self.context.currentImage().image = QtWidgets.QImage(
+            self.context.currentImage().image = QImage(
                 self.context.currentImage().history[
                     self.context.currentImage().posHistory
                 ]
