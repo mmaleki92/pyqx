@@ -110,8 +110,8 @@ class Canvas(QtWidgets.QLabel):
     def mousePressEvent(self, event):
 
         pos = event.pos()
-        x = pos.x() / self.image().zoom  # x de la imagen
-        y = pos.y() / self.image().zoom  # y de la imagen
+        x = int(pos.x() / self.image().zoom) # x de la imagen
+        y = int(pos.y() / self.image().zoom)  # y de la imagen
 
         # Selección
         if self.context.currentTool == Pixeler.Tools.Selection:
@@ -196,8 +196,8 @@ class Canvas(QtWidgets.QLabel):
     def mouseMoveEvent(self, event):
 
         pos = event.pos()
-        x = pos.x() / self.image().zoom  # x de la imagen
-        y = pos.y() / self.image().zoom  # y de la imagen
+        x = int(pos.x() / self.image().zoom)  # x de la imagen
+        y = int(pos.y() / self.image().zoom)  # y de la imagen
 
         self.signals.overCanvas.emit(x, y)
 
@@ -273,24 +273,24 @@ class Canvas(QtWidgets.QLabel):
             for j in range(size):
                 if m[i][j]:
                     if j == 0 or not m[i][j - 1]:
-                        x0 = (x - size / 2 + j) * self.image().zoom
-                        y0 = (y - size / 2 + i) * self.image().zoom
-                        y1 = (y - size / 2 + i + 1) * self.image().zoom - 1
+                        x0 = int((x - size / 2 + j) * self.image().zoom)
+                        y0 = int((y - size / 2 + i) * self.image().zoom)
+                        y1 = int((y - size / 2 + i + 1) * self.image().zoom - 1)
                         painter.drawLine(x0, y0, x0, y1)
                     if j == size - 1 or not m[i][j + 1]:
-                        x0 = (x + size / 2 + (j - size) + 2) * self.image().zoom - 1
-                        y0 = (y - size / 2 + i) * self.image().zoom
-                        y1 = (y - size / 2 + i + 1) * self.image().zoom - 1
+                        x0 = int((x + size / 2 + (j - size) + 2) * self.image().zoom - 1)
+                        y0 = int((y - size / 2 + i) * self.image().zoom)
+                        y1 = int((y - size / 2 + i + 1) * self.image().zoom - 1)
                         painter.drawLine(x0, y0, x0, y1)
                     if i == 0 or not m[i - 1][j]:
-                        x0 = (x - size / 2 + j) * self.image().zoom
-                        x1 = (x - size / 2 + j + 1) * self.image().zoom - 1
-                        y0 = (y - size / 2 + i) * self.image().zoom
+                        x0 = int((x - size / 2 + j) * self.image().zoom)
+                        x1 = int((x - size / 2 + j + 1) * self.image().zoom - 1)
+                        y0 = int((y - size / 2 + i) * self.image().zoom)
                         painter.drawLine(x0, y0, x1, y0)
                     if i == size - 1 or not m[i + 1][j]:
-                        x0 = (x + size / 2 + (j - size) + 1) * self.image().zoom
-                        x1 = (x + size / 2 + (j - size) + 2) * self.image().zoom - 1
-                        y0 = (y + size / 2 + (i - size) + 2) * self.image().zoom - 1
+                        x0 = int((x + size / 2 + (j - size) + 1) * self.image().zoom)
+                        x1 = int((x + size / 2 + (j - size) + 2) * self.image().zoom - 1)
+                        y0 = int((y + size / 2 + (i - size) + 2) * self.image().zoom - 1)
                         painter.drawLine(x0, y0, x1, y0)
 
     def mouseReleaseEvent(self, event):
@@ -463,7 +463,7 @@ class Canvas(QtWidgets.QLabel):
         self.resize()
 
     def resize(self):
-
+        print(self.image().zoom)
         super(Canvas, self).resize(QtCore.QSize(self.image().image.width() * self.image().zoom,
                                                 self.image().image.height() * self.image().zoom))
 

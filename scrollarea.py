@@ -60,15 +60,25 @@ class ScrollArea(QtWidgets.QScrollArea):
 			h = g.height()
 
 			if self.canvas.width() < w:
-				self.canvas.move( (w-self.context.getImagePos(self.index).image.width()*self.context.getImagePos(self.index).zoom)/2 , self.canvas.y() )
+				self.canvas.move( 
+					int((w-self.context.getImagePos(self.index).image.width()*self.context.getImagePos(self.index).zoom)/2),
+					int(self.canvas.y())
+					)
 			if self.canvas.height() < h:
-				self.canvas.move( self.canvas.x(), (h-self.context.getImagePos(self.index).image.height()*self.context.getImagePos(self.index).zoom)/2 )
+				self.canvas.move(
+					int(self.canvas.x()), 
+					int((h-self.context.getImagePos(self.index).image.height()*self.context.getImagePos(self.index).zoom)/2)
+					)
 
 	def calcNewScrollBarPosition(self):
 
 		if self.context.imagePos == self.index:
-			self.horizontalScrollBar().setValue((self.horizontalScrollBar().maximum() - self.horizontalScrollBar().minimum()) / 2)
-			self.verticalScrollBar().setValue((self.verticalScrollBar().maximum() - self.verticalScrollBar().minimum()) / 2)
+			self.horizontalScrollBar().setValue(
+				int((self.horizontalScrollBar().maximum() - self.horizontalScrollBar().minimum()) / 2)
+				)
+			self.verticalScrollBar().setValue(
+				int((self.verticalScrollBar().maximum() - self.verticalScrollBar().minimum()) / 2)
+				)
 
 	def setNewIndex(self, removedIndex):
 
@@ -83,7 +93,7 @@ class ScrollArea(QtWidgets.QScrollArea):
 		w = g.width()
 		h = g.height()
 
-		self.context.images[-1].zoom = min(w/self.context.images[-1].image.width(), h/self.context.images[-1].image.height())
+		self.context.images[-1].zoom = int(min(w/self.context.images[-1].image.width(), h/self.context.images[-1].image.height()))
 		self.signals.zoom.emit()
 
 	def mousePressEvent(self, event):

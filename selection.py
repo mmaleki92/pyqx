@@ -22,5 +22,10 @@ class Selection(QtWidgets.QRubberBand):
 
 	def setGeometry(self, x, y, w, h): # Todos los argumentos son el imagen, no en el Canvas
 
-		self.rect = QtCore.QRect(x, y, w, h)
-		super(Selection, self).setGeometry( x * self.context.currentImage().zoom - 1, y * self.context.currentImage().zoom - 1, w * self.context.currentImage().zoom + 2, h * self.context.currentImage().zoom + 2 )
+		self.rect = QtCore.QRect(int(x), int(y), int(w), int(h))
+		super(Selection, self).setGeometry(
+									int(x * self.context.currentImage().zoom - 1),
+									int(y * self.context.currentImage().zoom - 1),
+									int(w * self.context.currentImage().zoom + 2),
+									int(h * self.context.currentImage().zoom + 2)
+									)
