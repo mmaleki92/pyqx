@@ -26,19 +26,19 @@ class TDatabase:
         self.langAvailable = []
 
         cp = ConfigParser()
-        l = os.listdir("lang")
-        for i in l:
-            cp.read("lang/" + i)
+        langs = os.listdir("lang")
+        for lang in langs:
+            cp.read("lang/" + lang)
             langname = cp.get("_lang", "name")
             d2 = {}
             for j in cp.sections()[1:]:  # Sin la sección _lang
                 d3 = {}
-                for k, l in cp.items(j):
-                    d3[k] = l
+                for key, value in cp.items(j):
+                    d3[key] = value
                 d2[j] = d3
-            lang = Language(i, langname, d2)
-            self.d[i] = lang
-            self.langAvailable.append(i)
+            lang = Language(lang, langname, d2)
+            self.d[lang] = lang
+            self.langAvailable.append(lang)
 
         self.langNum = len(self.d.keys())
 
