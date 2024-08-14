@@ -75,12 +75,15 @@ class MainWindow(QtWidgets.QMainWindow):
 			l.append(a)
 
 		a = QtWidgets.QAction(QtGui.QIcon( os.path.join("themes", self.context.theme, "zoomin.png") ), self.context.getText("tools", "zoomin"), self.tools)
+		a.setEnabled(False)
 		a.setShortcut("Ctrl++")
 		a.triggered.connect(self.zoomIn)
 		l.append(a)
 
 		a = QtWidgets.QAction(QtGui.QIcon( os.path.join("themes", self.context.theme, "zoomout.png") ), self.context.getText("tools", "zoomout"), self.tools)
 		a.setShortcut("Ctrl+-")
+		a.setEnabled(False)
+
 		a.triggered.connect(self.zoomOut)
 		l.append(a)
 
