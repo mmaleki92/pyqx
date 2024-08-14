@@ -13,6 +13,7 @@ from toolproperties import ToolProperties
 from preview import Preview
 from dialogs import NewFileDialog, ResizeImageDialog, ResizeCanvasDialog, Preferences
 from PyQt5.QtGui import QImage
+from PyQt5.QtGui import QColor, QPixmap
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -672,7 +673,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.ctrlPressed:
             print("Picking Desktop Color")
             widget = QtCore.QCoreApplication.instance().desktop().screen()
-            im = QtWidgets.QPixmap.grabWindow(
+            im = QPixmap.grabWindow(
                 widget.winId()
             ).toImage()  # Captura de pantalla
             c = QtWidgets.QColor(
@@ -696,7 +697,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Lo mismo de antes pero para cuando el ratón se mueve
         if self.ctrlPressed:
             widget = QtCore.QCoreApplication.instance().desktop().screen()
-            im = QtWidgets.QPixmap.grabWindow(
+            im = QPixmap.grabWindow(
                 widget.winId()
             ).toImage()  # Captura de pantalla
             c = QtWidgets.QColor(
