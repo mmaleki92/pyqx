@@ -9,7 +9,7 @@ from PyQt5.QtCore import Qt
 
 from image import Image
 from translation import Language, TDatabase
-from brushes import *
+from brushes import createBrushes
 
 
 class Context:
@@ -17,7 +17,7 @@ class Context:
     def __init__(self, signals):
 
         self.signals = signals
-
+        self.DegState = 0 
         self.palette = []
         self.defaultPalette = [
             [14, 53, 75],
